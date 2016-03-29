@@ -9,8 +9,9 @@
 # -Script File name for commands to run on startup
 # -Hostname The hostname to add for this host
 # -ZoneId The Route53 zone ID on which to add the hostname
+# -SecurityGroup The security group ID to use for the new instance
 #
-param([Parameter(Mandatory=$true)][string]$AMI, [Parameter(Mandatory=$true)][string]$Subnet, [Parameter(Mandatory=$true)][string]$Type, [Parameter(Mandatory=$true)][string]$KeyName, [Parameter(Mandatory=$true)][string]$Script, [Parameter(Mandatory=$true)][string]$Hostname, [Parameter(Mandatory=$true)][string]$ZoneId)
+param([Parameter(Mandatory=$true)][string]$AMI, [Parameter(Mandatory=$true)][string]$Subnet, [Parameter(Mandatory=$true)][string]$Type, [Parameter(Mandatory=$true)][string]$KeyName, [Parameter(Mandatory=$true)][string]$Script, [Parameter(Mandatory=$true)][string]$Hostname, [Parameter(Mandatory=$true)][string]$ZoneId, [Parameter(Mandatory=$true)][string]$SecurityGroup)
 $ErrorActionPreference = "Stop"
 
 # Make sure the key exists, otherwise create a new one
@@ -26,7 +27,7 @@ if($keys.KeyName -notcontains $KeyName)
 
 # Create the EC2 instance
 Write-Host "Creating EC2 instance..."
-$b = New-EC2Instance -ImageId $AMI -MinCount 1 -MaxCount 1 -KeyName $KeyName -SecurityGroupId sg-9e775cfa -InstanceType $Type -SubnetId $Subnet -UserDataFile $Script -EncodeUserData
+$b = New-EC2Instance -ImageId $AMI -MinCount 1 -MaxCount 1 -KeyName $KeyName -SecurityGroupId $SecurityGroup -InstanceType $Type -SubnetId $Subnet -UserDataFile $Script -EncodeUserData
 $new = $b.Instances[0].InstanceId
 
 # Wait for it to run and get info
