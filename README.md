@@ -14,6 +14,10 @@ Options:
 * -ZoneId The Route53 zone ID on which to add the hostname
 * -SecurityGroup The security group ID to use for the new instance
 
+Example:
+
+    .\aws_create_instance.ps1 -AMI ami-d2c924b2 -Subnet subnet-8e3bf3a2 -Type t2.nano -KeyName aws-test -Script c:\scripts\centos_init.sh -Hostname test.example.com -ZoneId Z1W5966G181726
+
 ### aws_destroy_instance.ps1
 This script will terminate an EC2 instance, delete the attached volumes, remove the A record.
 
@@ -22,3 +26,6 @@ Options:
 * -Hostname The hostname to remove for this host
 * -ZoneId The Route53 zone ID on which to remove the hostname
 
+Example:
+
+    .\aws_destroy_instance.ps1 -InstanceId i-XXXXXX -Hostname test.example.com -ZoneId Z1W5966G181726
