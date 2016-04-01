@@ -1,6 +1,10 @@
 ## AWS
 AWS related scripts.
 
+**Prerequisites:**
+* You need AWS PowerShell Tools installed and the module loaded
+* You need an IAM user registered with the proper credentials for EC2 and Route53
+
 ### aws_create_instance.ps1
 This script will create an EC2 instance, a key pair to connect, add a Route 53 A record for it.
 
